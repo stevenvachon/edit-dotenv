@@ -1,0 +1,33 @@
+{
+  "name": "edit-dotenv",
+  "description": "Edit a .env file string with preserved whitespace.",
+  "version": "1.0.4",
+  "license": "MIT",
+  "author": "Steven Vachon <contact@svachon.com> (https://www.svachon.com/)",
+  "repository": "stevenvachon/edit-dotenv",
+  "dependencies": {
+    "eol": "~0.9.0",
+    "escape-string-regexp": "^1.0.5"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "coveralls": "^2.13.1",
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.3"
+  },
+  "engines": {
+    "node": ">= 4"
+  },
+  "scripts": {
+    "ci": "npm run test && nyc report --reporter=text-lcov | coveralls",
+    "posttest": "nyc report --reporter=html",
+    "test": "nyc --reporter=text-summary mocha test --check-leaks --bail"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "dotenv",
+    "whitespace"
+  ]
+}
