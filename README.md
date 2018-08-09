@@ -1,11 +1,11 @@
 # edit-dotenv [![NPM Version][npm-image]][npm-url] [![Linux Build][travis-image]][travis-url] [![Windows Build][appveyor-image]][appveyor-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependency Monitor][greenkeeper-image]][greenkeeper-url]
 
-> Edit a `.env` file string with preserved whitespace.
+> Edit a `.env` file string with preserved comments and whitespace.
 
 
 ## Installation
 
-[Node.js](http://nodejs.org/) `>= 4` is required. To install, type this at the command line:
+[Node.js](http://nodejs.org/) `>= 6` is required. To install, type this at the command line:
 ```shell
 npm install edit-dotenv
 ```
@@ -41,7 +41,7 @@ NEW=value
 
 
 [npm-image]: https://img.shields.io/npm/v/edit-dotenv.svg
-[npm-url]: https://npmjs.org/package/edit-dotenv
+[npm-url]: https://npmjs.com/package/edit-dotenv
 [travis-image]: https://img.shields.io/travis/stevenvachon/edit-dotenv.svg?label=linux
 [travis-url]: https://travis-ci.org/stevenvachon/edit-dotenv
 [appveyor-image]: https://img.shields.io/appveyor/ci/stevenvachon/edit-dotenv.svg?label=windows

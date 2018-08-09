@@ -1,13 +1,14 @@
 "use strict";
+const {auto: normalizeEOL} = require("eol");
 const editDotenv = require("./");
-const expect = require("chai").expect;
-const normalizeEOL = require("eol").auto;
+const {expect} = require("chai");
+const {it} = require("mocha");
 
 
 
-it("replaces existing variables", function()
+it("replaces existing variables", () =>
 {
-	let after,before,vars;
+	let after, before, vars;
 
 	vars = { EXISTING_VARIABLE:"new value" };
 	before = "EXISTING_VARIABLE=";
@@ -44,9 +45,9 @@ it("replaces existing variables", function()
 
 
 
-it("replaces existing variables containing various whitespace", function()
+it("replaces existing variables containing various whitespace", () =>
 {
-	let after,before,vars;
+	let after, before, vars;
 
 	vars = { EXISTING_VARIABLE:"new value" };
 	before = "EXISTING_VARIABLE  =  ";
@@ -105,9 +106,9 @@ it("replaces existing variables containing various whitespace", function()
 
 
 
-it("replaces existing variables containing RegExp special characters", function()
+it("replaces existing variables containing RegExp special characters", () =>
 {
-	let after,before,vars;
+	let after, before, vars;
 
 	vars = { "/^\\w+$/":"new value" };
 	before = "/^\\w+$/=value";
@@ -155,9 +156,9 @@ it("replaces existing variables containing RegExp special characters", function(
 
 
 
-it("appends new variables", function()
+it("appends new variables", () =>
 {
-	let after,before,vars;
+	let after, before, vars;
 
 	vars = { APPENDED_VARIABLE:"new\r\nvalue" };
 	before = "";
@@ -227,9 +228,9 @@ it("appends new variables", function()
 
 
 
-it("does not affect comments", function()
+it("does not affect comments", () =>
 {
-	let after,before,vars;
+	let after, before, vars;
 
 	vars = { EXISTING_VARIABLE2:"new value" };
 	before = "EXISTING_VARIABLE1=value\n# Comment\nEXISTING_VARIABLE2=value\n";

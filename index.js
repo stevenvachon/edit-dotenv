@@ -1,11 +1,11 @@
 "use strict";
-const EOL = require("os").EOL;
+const {auto: normalizeEOL} = require("eol");
+const {EOL} = require("os");
 const escapeStringRegexp = require("escape-string-regexp");
-const normalizeEOL = require("eol").auto;
 
-const flags = "gm";
 const breakPattern = /\n/g;
 const breakReplacement = "\\n";
+const flags = "gm";
 const groupPattern = /\$/g;
 const groupReplacement = "$$$";
 const h = "[^\\S\\r\\n]";  // simulate `\h`
@@ -20,9 +20,10 @@ const editDotenv = (envString, changes) =>
 
 	return Object.keys(changes).reduce((result, varname) =>
 	{
-		const value = changes[varname].replace(breakPattern, breakReplacement)
-		                              .replace(returnPattern, returnReplacement)
-		                              .trim();
+		const value = changes[varname]
+			.replace(breakPattern, breakReplacement)
+			.replace(returnPattern, returnReplacement)
+			.trim();
 
 		const safeName = escapeStringRegexp(varname);
 
@@ -32,37 +33,38 @@ const editDotenv = (envString, changes) =>
 		{
 			const safeValue = value.replace(groupPattern, groupReplacement);
 
-			result = result.replace(varPattern, `$1${safeValue}$2`);
+			return result.replace(varPattern, `$1${safeValue}$2`);
 		}
 		else if (result === "")
 		{
-			result = `${varname}=${value}${EOL}`;
 			hasAppended = true;
+
+			return `${varname}=${value}${EOL}`;
 		}
 		else if (!result.endsWith(EOL) && !hasAppended)
 		{
-			// Add an extra break between previously defined and newly appended variable
-			result += `${EOL}${EOL}${varname}=${value}`;
 			hasAppended = true;
+
+			// Add an extra break between previously defined and newly appended variable
+			return `${result}${EOL}${EOL}${varname}=${value}`;
 		}
 		else if (!result.endsWith(EOL))
 		{
 			// Add break for appended variable
-			result += `${EOL}${varname}=${value}`;
+			return `${result}${EOL}${varname}=${value}`;
 		}
 		else if (result.endsWith(EOL) && !hasAppended)
 		{
-			// Add an extra break between previously defined and newly appended variable
-			result += `${EOL}${varname}=${value}${EOL}`;
 			hasAppended = true;
+
+			// Add an extra break between previously defined and newly appended variable
+			return `${result}${EOL}${varname}=${value}${EOL}`;
 		}
 		else /*if (result.endsWith(EOL))*/
 		{
 			// Add break for appended variable
-			result += `${varname}=${value}${EOL}`;
+			return `${result}${varname}=${value}${EOL}`;
 		}
-
-		return result;
 
 	}, normalizeEOL(envString));
 };
